@@ -1,3 +1,3 @@
 const Casilla = require("./Casilla.jsx");
 
-ReactDOM.render(<Casilla valor="X" />, document.getElementById('contenedor'));
+ReactDOM.render(<Casilla />, document.getElementById('contenedor'));
