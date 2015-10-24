@@ -23,37 +23,22 @@ var Casilla = React.createClass({
 module.exports = Casilla;
 
 },{}],2:[function(require,module,exports){
-'use strict';
+"use strict";
 
 var Casilla = require("./Casilla.jsx");
 
 var Fila = React.createClass({
-  displayName: 'Fila',
+  displayName: "Fila",
 
-  getInitialState: function getInitialState() {
-    return {
-      clicks: 0,
-      valoresFila: ['-', '-', '-']
-    };
-  },
-  manejadorClick: function manejadorClick(indice) {
-    var nuevoValor = 'X';
-    if (this.state.clicks % 2 === 0) {
-      nuevoValor = 'O';
-    }
-    var valoresFila = this.state.valoresFila;
-    valoresFila[indice] = nuevoValor;
-    this.setState({
-      valoresFila: valoresFila,
-      clicks: this.state.clicks + 1
-    });
+  manejadorClick: function manejadorClick(indiceFila) {
+    this.props.manejadorClick(this.props.indiceTablero, indiceFila);
   },
   render: function render() {
-    var casillas = this.state.valoresFila.map((function (valor, indice) {
+    var casillas = this.props.valoresFila.map((function (valor, indice) {
       return React.createElement(Casilla, { valor: valor, key: indice, indiceFila: indice, manejadorClick: this.manejadorClick });
     }).bind(this));
     return React.createElement(
-      'div',
+      "div",
       null,
       casillas
     );
@@ -63,20 +48,39 @@ var Fila = React.createClass({
 module.exports = Fila;
 
 },{"./Casilla.jsx":1}],3:[function(require,module,exports){
-"use strict";
+'use strict';
 
 var Fila = require("./Fila.jsx");
 
 var Tablero = React.createClass({
-  displayName: "Tablero",
+  displayName: 'Tablero',
 
+  getInitialState: function getInitialState() {
+    return {
+      clicks: 0,
+      valoresTablero: [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']]
+    };
+  },
+  manejadorClick: function manejadorClick(indiceTablero, indiceFila) {
+    var valoresTablero = this.state.valoresTablero;
+    var nuevoValor = 'X';
+    if (this.state.clicks % 2 === 0) {
+      nuevoValor = 'O';
+    }
+    valoresTablero[indiceTablero][indiceFila] = nuevoValor;
+    this.setState({
+      clicks: this.state.clicks + 1,
+      valoresTablero: this.state.valoresTablero
+    });
+  },
   render: function render() {
+    var filas = this.state.valoresTablero.map((function (fila, indice) {
+      return React.createElement(Fila, { key: indice, valoresFila: fila, indiceTablero: indice, manejadorClick: this.manejadorClick });
+    }).bind(this));
     return React.createElement(
-      "div",
+      'div',
       null,
-      React.createElement(Fila, null),
-      React.createElement(Fila, null),
-      React.createElement(Fila, null)
+      filas
     );
   }
 });
