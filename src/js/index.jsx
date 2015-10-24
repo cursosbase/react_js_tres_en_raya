@@ -1,3 +1,3 @@
-const Fila = require("./Fila.jsx");
+const Tablero = require("./Tablero.jsx");
 
-ReactDOM.render(<Fila />, document.getElementById('contenedor'));
+ReactDOM.render(<Tablero />, document.getElementById('contenedor'));
