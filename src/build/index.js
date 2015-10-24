@@ -12,6 +12,14 @@ var Casilla = React.createClass({
 		);
 	}
 });
+
+module.exports = Casilla;
+
+},{}],2:[function(require,module,exports){
+"use strict";
+
+var Casilla = require("./Casilla.jsx");
+
 ReactDOM.render(React.createElement(Casilla, { valor: "X" }), document.getElementById('contenedor'));
 
-},{}]},{},[1]);
+},{"./Casilla.jsx":1}]},{},[2]);
