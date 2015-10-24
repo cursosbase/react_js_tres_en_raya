@@ -3,27 +3,14 @@ const casillaStyle = {
   width: '100px'
 };
 
-let Casilla = React.createClass({
-    getInitialState: function(){
-      return {
-        valor: '-'
-      }
-    },
+let Casilla = React.createClass({    
     manejadorClick: function(){
-      var valorAntiguo = this.state.valor;
-      if(valorAntiguo==="-") {
-          var valorNuevo = Math.random() < 0.5 ? 'O': 'X';
-      } else {
-          var valorNuevo = valorAntiguo === 'X' ? 'O': 'X';
-      }
-      this.setState({
-        valor: valorNuevo
-      });
+      this.props.manejadorClick(this.props.indiceFila);
     },    
     render: function(){
       return (
         <button style={casillaStyle} onClick={this.manejadorClick}>
-          {this.state.valor}
+          {this.props.valor}
         </button>
       )
     }   

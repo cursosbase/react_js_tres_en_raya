@@ -9,47 +9,53 @@ var casillaStyle = {
 var Casilla = React.createClass({
   displayName: 'Casilla',
 
-  getInitialState: function getInitialState() {
-    return {
-      valor: '-'
-    };
-  },
   manejadorClick: function manejadorClick() {
-    var valorAntiguo = this.state.valor;
-    if (valorAntiguo === "-") {
-      var valorNuevo = Math.random() < 0.5 ? 'O' : 'X';
-    } else {
-      var valorNuevo = valorAntiguo === 'X' ? 'O' : 'X';
-    }
-    this.setState({
-      valor: valorNuevo
-    });
+    this.props.manejadorClick(this.props.indiceFila);
   },
   render: function render() {
     return React.createElement(
       'button',
       { style: casillaStyle, onClick: this.manejadorClick },
-      this.state.valor
+      this.props.valor
     );
   }
 });
 module.exports = Casilla;
 
 },{}],2:[function(require,module,exports){
-"use strict";
+'use strict';
 
 var Casilla = require("./Casilla.jsx");
 
 var Fila = React.createClass({
-  displayName: "Fila",
+  displayName: 'Fila',
 
+  getInitialState: function getInitialState() {
+    return {
+      clicks: 0,
+      valoresFila: ['-', '-', '-']
+    };
+  },
+  manejadorClick: function manejadorClick(indice) {
+    var nuevoValor = 'X';
+    if (this.state.clicks % 2 === 0) {
+      nuevoValor = 'O';
+    }
+    var valoresFila = this.state.valoresFila;
+    valoresFila[indice] = nuevoValor;
+    this.setState({
+      valoresFila: valoresFila,
+      clicks: this.state.clicks + 1
+    });
+  },
   render: function render() {
+    var casillas = this.state.valoresFila.map((function (valor, indice) {
+      return React.createElement(Casilla, { valor: valor, key: indice, indiceFila: indice, manejadorClick: this.manejadorClick });
+    }).bind(this));
     return React.createElement(
-      "div",
+      'div',
       null,
-      React.createElement(Casilla, null),
-      React.createElement(Casilla, null),
-      React.createElement(Casilla, null)
+      casillas
     );
   }
 });
