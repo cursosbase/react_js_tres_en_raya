@@ -67,6 +67,27 @@ module.exports = Fila;
 
 var Fila = require("./Fila.jsx");
 
-ReactDOM.render(React.createElement(Fila, null), document.getElementById('contenedor'));
+var Tablero = React.createClass({
+  displayName: "Tablero",
 
-},{"./Fila.jsx":2}]},{},[3]);
+  render: function render() {
+    return React.createElement(
+      "div",
+      null,
+      React.createElement(Fila, null),
+      React.createElement(Fila, null),
+      React.createElement(Fila, null)
+    );
+  }
+});
+
+module.exports = Tablero;
+
+},{"./Fila.jsx":2}],4:[function(require,module,exports){
+"use strict";
+
+var Tablero = require("./Tablero.jsx");
+
+ReactDOM.render(React.createElement(Tablero, null), document.getElementById('contenedor'));
+
+},{"./Tablero.jsx":3}]},{},[4]);
