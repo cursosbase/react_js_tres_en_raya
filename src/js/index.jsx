@@ -1,3 +1,3 @@
-const Casilla = require("./Casilla.jsx");
+const Fila = require("./Fila.jsx");
 
-ReactDOM.render(<Casilla />, document.getElementById('contenedor'));
+ReactDOM.render(<Fila />, document.getElementById('contenedor'));

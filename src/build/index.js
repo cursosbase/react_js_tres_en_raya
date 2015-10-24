@@ -40,6 +40,27 @@ module.exports = Casilla;
 
 var Casilla = require("./Casilla.jsx");
 
-ReactDOM.render(React.createElement(Casilla, null), document.getElementById('contenedor'));
+var Fila = React.createClass({
+  displayName: "Fila",
 
-},{"./Casilla.jsx":1}]},{},[2]);
+  render: function render() {
+    return React.createElement(
+      "div",
+      null,
+      React.createElement(Casilla, null),
+      React.createElement(Casilla, null),
+      React.createElement(Casilla, null)
+    );
+  }
+});
+
+module.exports = Fila;
+
+},{"./Casilla.jsx":1}],3:[function(require,module,exports){
+"use strict";
+
+var Fila = require("./Fila.jsx");
+
+ReactDOM.render(React.createElement(Fila, null), document.getElementById('contenedor'));
+
+},{"./Fila.jsx":2}]},{},[3]);
