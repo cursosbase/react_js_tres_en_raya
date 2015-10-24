@@ -11,13 +11,24 @@ var Casilla = React.createClass({
 
   getInitialState: function getInitialState() {
     return {
-      valor: 'X'
+      valor: '-'
     };
+  },
+  manejadorClick: function manejadorClick() {
+    var valorAntiguo = this.state.valor;
+    if (valorAntiguo === "-") {
+      var valorNuevo = Math.random() < 0.5 ? 'O' : 'X';
+    } else {
+      var valorNuevo = valorAntiguo === 'X' ? 'O' : 'X';
+    }
+    this.setState({
+      valor: valorNuevo
+    });
   },
   render: function render() {
     return React.createElement(
       'button',
-      { style: casillaStyle },
+      { style: casillaStyle, onClick: this.manejadorClick },
       this.state.valor
     );
   }
