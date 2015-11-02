@@ -9,27 +9,14 @@ var casillaStyle = {
 var Casilla = React.createClass({
   displayName: 'Casilla',
 
-  getInitialState: function getInitialState() {
-    return {
-      valor: '-'
-    };
-  },
   casillaClick: function casillaClick() {
-    var valorAntiguo = this.state.valor;
-    if (valorAntiguo === "-") {
-      var valorNuevo = Math.random() < 0.5 ? 'O' : 'X';
-    } else {
-      var valorNuevo = valorAntiguo === 'X' ? 'O' : 'X';
-    }
-    this.setState({
-      valor: valorNuevo
-    });
+    this.props.manejadorClick(this.props.indiceFila, this.props.indiceColumna);
   },
   render: function render() {
     return React.createElement(
       'button',
       { style: casillaStyle, onClick: this.casillaClick },
-      this.state.valor
+      this.props.valor
     );
   }
 });
@@ -37,10 +24,67 @@ var Casilla = React.createClass({
 module.exports = Casilla;
 
 },{}],2:[function(require,module,exports){
-"use strict";
+'use strict';
 
 var Casilla = require("./Casilla.jsx");
 
-ReactDOM.render(React.createElement(Casilla, null), document.getElementById('contenedor'));
+var Tablero = React.createClass({
+  displayName: 'Tablero',
 
-},{"./Casilla.jsx":1}]},{},[2]);
+  getInitialState: function getInitialState() {
+    return {
+      clicks: 0,
+      valores: [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']]
+    };
+  },
+  tableroClick: function tableroClick(indiceFila, indiceColumna) {
+    var valores = this.state.valores;
+    var nuevoValor = 'X';
+    if (this.state.clicks % 2 === 0) {
+      nuevoValor = 'O';
+    }
+    valores[indiceFila][indiceColumna] = nuevoValor;
+    this.setState({
+      clicks: this.state.clicks + 1,
+      valores: this.state.valores
+    });
+  },
+  render: function render() {
+    return React.createElement(
+      'div',
+      null,
+      React.createElement(
+        'div',
+        null,
+        React.createElement(Casilla, { valor: this.state.valores[0][0], indiceFila: 0, indiceColumna: 0, manejadorClick: this.tableroClick }),
+        React.createElement(Casilla, { valor: this.state.valores[0][1], indiceFila: 0, indiceColumna: 1, manejadorClick: this.tableroClick }),
+        React.createElement(Casilla, { valor: this.state.valores[0][2], indiceFila: 0, indiceColumna: 2, manejadorClick: this.tableroClick })
+      ),
+      React.createElement(
+        'div',
+        null,
+        React.createElement(Casilla, { valor: this.state.valores[1][0], indiceFila: 1, indiceColumna: 0, manejadorClick: this.tableroClick }),
+        React.createElement(Casilla, { valor: this.state.valores[1][1], indiceFila: 1, indiceColumna: 1, manejadorClick: this.tableroClick }),
+        React.createElement(Casilla, { valor: this.state.valores[1][2], indiceFila: 1, indiceColumna: 2, manejadorClick: this.tableroClick })
+      ),
+      React.createElement(
+        'div',
+        null,
+        React.createElement(Casilla, { valor: this.state.valores[2][0], indiceFila: 2, indiceColumna: 0, manejadorClick: this.tableroClick }),
+        React.createElement(Casilla, { valor: this.state.valores[2][1], indiceFila: 2, indiceColumna: 1, manejadorClick: this.tableroClick }),
+        React.createElement(Casilla, { valor: this.state.valores[2][2], indiceFila: 2, indiceColumna: 2, manejadorClick: this.tableroClick })
+      )
+    );
+  }
+});
+
+module.exports = Tablero;
+
+},{"./Casilla.jsx":1}],3:[function(require,module,exports){
+"use strict";
+
+var Tablero = require("./Tablero.jsx");
+
+ReactDOM.render(React.createElement(Tablero, null), document.getElementById('contenedor'));
+
+},{"./Tablero.jsx":2}]},{},[3]);
