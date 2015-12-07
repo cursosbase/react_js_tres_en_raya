@@ -11,17 +11,29 @@ var Casilla = React.createClass({
 
   getInitialState: function getInitialState() {
     return {
-      valor: 'X'
+      valor: '-'
     };
+  },
+  casillaClick: function casillaClick() {
+    var valorAntiguo = this.state.valor;
+    if (valorAntiguo === "-") {
+      var valorNuevo = Math.random() < 0.5 ? 'O' : 'X';
+    } else {
+      var valorNuevo = valorAntiguo === 'X' ? 'O' : 'X';
+    }
+    this.setState({
+      valor: valorNuevo
+    });
   },
   render: function render() {
     return React.createElement(
       'button',
-      { style: casillaStyle },
+      { style: casillaStyle, onClick: this.casillaClick },
       this.state.valor
     );
   }
 });
+
 module.exports = Casilla;
 
 },{}],2:[function(require,module,exports){
