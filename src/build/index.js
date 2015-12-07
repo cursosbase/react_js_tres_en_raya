@@ -1,17 +1,34 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-"use strict";
+'use strict';
+
+var casillaStyle = {
+  height: '100px',
+  width: '100px'
+};
 
 var Casilla = React.createClass({
-	displayName: "Casilla",
+  displayName: 'Casilla',
 
-	render: function render() {
-		return React.createElement(
-			"div",
-			null,
-			this.props.valor
-		);
-	}
+  getInitialState: function getInitialState() {
+    return {
+      valor: 'X'
+    };
+  },
+  render: function render() {
+    return React.createElement(
+      'button',
+      { style: casillaStyle },
+      this.state.valor
+    );
+  }
 });
-ReactDOM.render(React.createElement(Casilla, { valor: "X" }), document.getElementById('contenedor'));
+module.exports = Casilla;
 
-},{}]},{},[1]);
+},{}],2:[function(require,module,exports){
+"use strict";
+
+var Casilla = require("./Casilla.jsx");
+
+ReactDOM.render(React.createElement(Casilla, null), document.getElementById('contenedor'));
+
+},{"./Casilla.jsx":1}]},{},[2]);
