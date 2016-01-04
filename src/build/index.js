@@ -50,30 +50,22 @@ var Tablero = React.createClass({
     });
   },
   render: function render() {
+    var casillas = this.state.valores.map((function (valoresFila, indiceFila) {
+      var fila = valoresFila.map((function (valor, indiceColumna) {
+        var mykey = "" + indiceFila + indiceColumna;
+        return React.createElement(Casilla, { valor: valor, indiceFila: indiceFila, indiceColumna: indiceColumna, key: mykey, manejadorClick: this.tableroClick });
+      }).bind(this));
+      return React.createElement(
+        'div',
+        { key: "fila" + indiceFila },
+        fila
+      );
+    }).bind(this));
+
     return React.createElement(
       'div',
       null,
-      React.createElement(
-        'div',
-        null,
-        React.createElement(Casilla, { valor: this.state.valores[0][0], indiceFila: 0, indiceColumna: 0, manejadorClick: this.tableroClick }),
-        React.createElement(Casilla, { valor: this.state.valores[0][1], indiceFila: 0, indiceColumna: 1, manejadorClick: this.tableroClick }),
-        React.createElement(Casilla, { valor: this.state.valores[0][2], indiceFila: 0, indiceColumna: 2, manejadorClick: this.tableroClick })
-      ),
-      React.createElement(
-        'div',
-        null,
-        React.createElement(Casilla, { valor: this.state.valores[1][0], indiceFila: 1, indiceColumna: 0, manejadorClick: this.tableroClick }),
-        React.createElement(Casilla, { valor: this.state.valores[1][1], indiceFila: 1, indiceColumna: 1, manejadorClick: this.tableroClick }),
-        React.createElement(Casilla, { valor: this.state.valores[1][2], indiceFila: 1, indiceColumna: 2, manejadorClick: this.tableroClick })
-      ),
-      React.createElement(
-        'div',
-        null,
-        React.createElement(Casilla, { valor: this.state.valores[2][0], indiceFila: 2, indiceColumna: 0, manejadorClick: this.tableroClick }),
-        React.createElement(Casilla, { valor: this.state.valores[2][1], indiceFila: 2, indiceColumna: 1, manejadorClick: this.tableroClick }),
-        React.createElement(Casilla, { valor: this.state.valores[2][2], indiceFila: 2, indiceColumna: 2, manejadorClick: this.tableroClick })
-      )
+      casillas
     );
   }
 });

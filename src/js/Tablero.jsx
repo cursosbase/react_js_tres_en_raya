@@ -23,25 +23,24 @@ var Tablero = React.createClass({
       valores: this.state.valores
     });
   },
-  render: function(){    
+  render: function(){
+    let casillas = this.state.valores.map(function(valoresFila, indiceFila){
+      let fila = valoresFila.map(function(valor, indiceColumna){
+          let mykey = ""+indiceFila+indiceColumna;
+          return (
+              <Casilla valor={valor} indiceFila={indiceFila} indiceColumna={indiceColumna} key={mykey} manejadorClick={this.tableroClick}/>
+              )
+          }.bind(this));
+      return (
+        <div key={"fila"+indiceFila}>
+          {fila}
+        </div>
+      )
+    }.bind(this));
+
     return (
       <div>
-        <div>
-          <Casilla valor={this.state.valores[0][0]} indiceFila={0} indiceColumna={0} manejadorClick={this.tableroClick}/>
-          <Casilla valor={this.state.valores[0][1]} indiceFila={0} indiceColumna={1} manejadorClick={this.tableroClick}/>
-          <Casilla valor={this.state.valores[0][2]} indiceFila={0} indiceColumna={2} manejadorClick={this.tableroClick}/>
-        </div>
-        <div>
-          <Casilla valor={this.state.valores[1][0]} indiceFila={1} indiceColumna={0} manejadorClick={this.tableroClick}/>
-          <Casilla valor={this.state.valores[1][1]} indiceFila={1} indiceColumna={1} manejadorClick={this.tableroClick}/>
-          <Casilla valor={this.state.valores[1][2]} indiceFila={1} indiceColumna={2} manejadorClick={this.tableroClick}/>
-        </div>
-        <div>
-          <Casilla valor={this.state.valores[2][0]} indiceFila={2} indiceColumna={0} manejadorClick={this.tableroClick}/>
-          <Casilla valor={this.state.valores[2][1]} indiceFila={2} indiceColumna={1} manejadorClick={this.tableroClick}/>
-          <Casilla valor={this.state.valores[2][2]} indiceFila={2} indiceColumna={2} manejadorClick={this.tableroClick}/>
-        </div>
-
+        {casillas}
       </div>
     );
   }
