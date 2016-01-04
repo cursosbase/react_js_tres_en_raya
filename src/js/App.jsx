@@ -1,5 +1,10 @@
+var React = require('react');
+var ReactDOM = require('react-dom');
+
 const Tablero = require('./Tablero.jsx');
 const Cabecera = require('./Cabecera.jsx');
+const MiModal = require('./MiModal.jsx');
+
 const JUGADORX = "jugador 1 - las X";
 const JUGADOR0 = "jugador 2 - los 0";
 
@@ -12,7 +17,9 @@ var App = React.createClass({
         ['-', '-', '-'],
         ['-', '-', '-'],
         ['-', '-', '-']
-      ]
+      ],
+      hayGanador: false,
+      showModal: false
     };
   },
 
@@ -23,13 +30,12 @@ var App = React.createClass({
       valores[numeroFila][numberoColumna] = nuevoValor;
 
       let hayGanador = this.comprobarGanador(valores, nuevoValor);
-      if(hayGanador){
-        alert("Ha ganado: " + this.state.turno);
-      }
+
       this.setState({
         turno: this.state.turno === JUGADORX ? JUGADOR0:JUGADORX,
         valores: this.state.valores,
-        hayGanador: hayGanador ? this.state.turno:false
+        hayGanador: hayGanador ? this.state.turno:false,
+        showModal: hayGanador
       });
     }
   },
@@ -70,16 +76,24 @@ var App = React.createClass({
 	  }
 
 		return false;
-  	},
+  },
+
+  closeModal: function(){
+  	this.setState({ showModal: false});
+  },
 
   render: function(){
-    var texto;
+    var texto, modal_texto;
     texto = "Turno del " + this.state.turno;
+    if(this.state.showModal){
+      //ha ganado el turno anterior, porque lo hemos actualizado automáticamente
+      modal_texto = "Ha ganado: " + this.state.turno === JUGADORX ? JUGADOR0:JUGADORX;
+    }
     return (
       <div>
         <Cabecera texto={texto}/>
-        <Tablero valores={this.state.valores}
-          manejadorTableroClick={this.appClick}/>
+        <Tablero valores={this.state.valores} manejadorTableroClick={this.appClick}/>
+        <MiModal texto={modal_texto} show={this.state.showModal} close={this.closeModal}/>
       </div>
     )
   }

@@ -1,3 +1,6 @@
+var React = require('react');
+var ReactDOM = require('react-dom');
+
 const Casilla = require("./Casilla.jsx");
 
 var Tablero = React.createClass({
