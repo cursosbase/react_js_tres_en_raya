@@ -9,3 +9,11 @@ body {
 #titulo{
   margin-left: 20px;
 }
+
+.clickable {
+	cursor: pointer;
+}
+
+.no_clickable {
+	cursor: not-allowed;
+}

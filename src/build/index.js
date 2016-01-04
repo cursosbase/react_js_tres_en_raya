@@ -10,12 +10,14 @@ var Casilla = React.createClass({
   displayName: 'Casilla',
 
   casillaClick: function casillaClick() {
-    this.props.manejadorClick(this.props.indiceFila, this.props.indiceColumna);
+    if (this.props.valor === "-") {
+      this.props.manejadorClick(this.props.indiceFila, this.props.indiceColumna);
+    }
   },
   render: function render() {
     return React.createElement(
       'button',
-      { style: casillaStyle, onClick: this.casillaClick },
+      { style: casillaStyle, className: this.props.valor === "-" ? "clickable" : "no_clickable", onClick: this.casillaClick },
       this.props.valor
     );
   }
